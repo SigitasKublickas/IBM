@@ -13,4 +13,12 @@ datasource db {
 model Car {
   id Int @id @default(autoincrement())
   plate String
+  time_stamp DateTime
+  
 }
+
+model PriceChart {
+ id Int @id @default(autoincrement())
+ price Float
+ time DateTime
+} 
