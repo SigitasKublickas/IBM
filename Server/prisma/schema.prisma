@@ -21,7 +21,7 @@ enum Day {
 }
 
 enum VehicleType {
-  Motercycle
+  Motorcycle
   Car
   Truck
 }

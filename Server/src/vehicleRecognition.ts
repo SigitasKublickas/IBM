@@ -6,7 +6,7 @@ const plateRecognizerUrl = "https://api.platerecognizer.com/v1/plate-reader/";
 const VehicleTypeMap: { [key: string]: VehicleType } = {
   "Big Truck": "Truck",
   Bus: "Truck",
-  Motorcycle: "Motercycle",
+  Motorcycle: "Motorcycle",
   "Pickup Truck": "Car",
   Sedan: "Car",
   SUV: "Car",

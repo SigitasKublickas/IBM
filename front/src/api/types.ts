@@ -7,7 +7,7 @@ export type Day =
   | "Saturday"
   | "Sunday";
 
-export type VehicleType = "Car" | "Motercycle" | "Truck";
+export type VehicleType = "Car" | "Motorcycle" | "Truck";
 
 export type Period = {
   id: string;
