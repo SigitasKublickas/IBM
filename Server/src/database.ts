@@ -1,4 +1,15 @@
-import { PrismaClient, Rate } from "@prisma/client";
+import {
+  Direction,
+  PrismaClient,
+  Rate,
+  VehicleRecord,
+  VehicleType,
+} from "@prisma/client";
+
+export type VehicleInfo = {
+  plateNumber: string;
+  vehicleType: VehicleType;
+};
 
 export const databaseClient = (prisma: PrismaClient) => {
   const getActivePeriods = () =>
@@ -32,9 +43,45 @@ export const databaseClient = (prisma: PrismaClient) => {
       },
     });
 
+  const createVehicleRecord = async (vehicle: VehicleInfo) => {
+    const lastRecord = await prisma.vehicleRecord.findFirst({
+      where: {
+        plateNumber: vehicle.plateNumber,
+      },
+    });
+    const rates = await prisma.rate.findMany({
+      where: {
+        vehicleType: vehicle.vehicleType,
+        isActive: true,
+      },
+    });
+    return prisma.vehicleRecord.create({
+      data: {
+        ...vehicle,
+        direction: getVehicleNewDirection(lastRecord),
+        rates: {
+          connect: [...rates.map((item) => ({ id: item.id }))],
+        },
+      },
+    });
+  };
+
   return {
     getActivePeriods,
     updateRate,
     createRate,
+    createVehicleRecord,
   };
+};
+
+const getVehicleNewDirection = (
+  lastRecord: VehicleRecord | null
+): Direction => {
+  if (!lastRecord) {
+    return "Enter";
+  }
+  if (lastRecord.direction === "Enter") {
+    return "Exit";
+  }
+  return "Enter";
 };

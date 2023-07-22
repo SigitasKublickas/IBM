@@ -1,6 +1,7 @@
 import { Axios } from "axios";
+import { FileReaderType } from "../components/imgInput";
 import { Day, Period, Rate, VehicleType } from "./types";
-const APIURL = "http://localhost:8000";
+export const APIURL = "http://localhost:8000";
 
 export const api = (axios: Axios) => {
   const getActivePeriods = async (): Promise<Period[]> => {
@@ -20,10 +21,14 @@ export const api = (axios: Axios) => {
     return axios.post(`${APIURL}/rate`, { ...rate });
   };
 
+  const createVehicleRecord = async (image: FileReaderType) => {
+    return axios.post(`${APIURL}/vehicleRecord`, { image });
+  };
   return {
     updateRate,
     createRate,
     getActivePeriods,
+    createVehicleRecord,
   };
 };
 

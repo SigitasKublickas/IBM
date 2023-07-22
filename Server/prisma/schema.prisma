@@ -26,13 +26,18 @@ enum VehicleType {
   Truck
 }
 
+enum Direction {
+  Enter
+  Exit
+}
+
 model VehicleRecord {
   id          String      @id @default(uuid())
   plateNumber String
   timeStamp   DateTime    @default(now())
   vehicleType VehicleType
-  rate        Rate        @relation(fields: [rateId], references: [id])
-  rateId      String
+  rates       Rate[]
+  direction   Direction
 }
 
 model Rate {

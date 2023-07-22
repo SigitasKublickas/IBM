@@ -6,6 +6,7 @@ import cors from "cors";
 import axios from "axios";
 import { databaseClient } from "./database.js";
 import { PrismaClient } from "@prisma/client";
+import { getVehilceInfo } from "./vehicleRecognition.js";
 
 const prisma = new PrismaClient();
 const database = databaseClient(prisma);
@@ -19,6 +20,7 @@ app.get("/activePeriods", async (req: Request, res: Response) => {
   const periods = await database.getActivePeriods();
   return res.json({ periods });
 });
+
 app.patch("/rate", async (req: Request, res: Response) => {
   const rate = await database.updateRate(req.body);
   res.json({ success: true });
@@ -29,28 +31,11 @@ app.post("/rate", async (req: Request, res: Response) => {
   res.json({ success: true });
 });
 
-const getData = async (img: string) => {
-  let body = new FormData();
-  body.append("upload", img);
-  body.append("regions", "lt"); // Change to your country
-
-  const response = await fetch(
-    "https://api.platerecognizer.com/v1/plate-reader/",
-    {
-      method: "POST",
-      headers: {
-        Authorization: "Token b52d5f066ed36e2b5738a3acce666d9df869650f",
-      },
-      body: body,
-    }
-  );
-
-  if (!response.ok) {
-    throw new Error("Plate recognizer API error");
-  }
-
-  return response.json();
-};
+app.post("/vehicleRecord", async (req: Request, res: Response) => {
+  const vehicleInfo = await getVehilceInfo(req.body.image);
+  const record = await database.createVehicleRecord(vehicleInfo);
+  res.json({ success: true });
+});
 
 app.listen(8000, () => {
   console.log("Server started on port 8000");
