@@ -16,7 +16,7 @@ export const getFormatedPeriod = (period: Period): string => {
 
 const getFormatedDays = (period: Period): string => {
   if (period.startDay === period.endDay) {
-    return `${period.startDay}`;
+    return period.startDay;
   }
   return `${period.startDay}-${period.endDay}`;
 };
@@ -29,5 +29,8 @@ const getFormatedHours = (period: Period): string => {
 };
 
 export const getFormatedPrice = (rate: Rate): string => {
+  if (rate.amount === 0) {
+    return "Free";
+  }
   return `${rate.amount} Eur/h`;
 };

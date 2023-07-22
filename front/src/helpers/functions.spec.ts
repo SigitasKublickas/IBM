@@ -55,4 +55,17 @@ describe(getFormatedPrice, () => {
 
     expect(getFormatedPrice(rate)).toBe("0.5 Eur/h");
   });
+
+  it("returns free when amount is 0", () => {
+    const rate: Rate = {
+      id: "",
+      creationDate: new Date(),
+      vehicleType: "Car",
+      amount: 0,
+      isActive: true,
+      periodId: "",
+    };
+
+    expect(getFormatedPrice(rate)).toBe("Free");
+  });
 });
