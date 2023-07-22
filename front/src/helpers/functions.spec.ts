@@ -1,5 +1,5 @@
-import { Period } from "../api";
-import { getFormatedPeriod } from "./functions";
+import { Period, Rate } from "../api";
+import { getFormatedPeriod, getFormatedPrice } from "./functions";
 
 describe(getFormatedPeriod, () => {
   it("returns correct string for one full day", () => {
@@ -39,5 +39,20 @@ describe(getFormatedPeriod, () => {
     };
 
     expect(getFormatedPeriod(period)).toBe("Monday-Thursday (8-17)");
+  });
+});
+
+describe(getFormatedPrice, () => {
+  it("returns correct string price", () => {
+    const rate: Rate = {
+      id: "",
+      creationDate: new Date(),
+      vehicleType: "Car",
+      amount: 0.5,
+      isActive: true,
+      periodId: "",
+    };
+
+    expect(getFormatedPrice(rate)).toBe("0.5 Eur/h");
   });
 });

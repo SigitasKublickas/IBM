@@ -1,4 +1,4 @@
-import { Period } from "../api";
+import { Period, Rate } from "../api";
 
 export const floatToHoursMinutes = (floatValue: number): string => {
   const hours = Math.floor(floatValue);
@@ -26,4 +26,8 @@ const getFormatedHours = (period: Period): string => {
     return "Whole day";
   }
   return `${period.startHour}-${period.endHour}`;
+};
+
+export const getFormatedPrice = (rate: Rate): string => {
+  return `${rate.amount} Eur/h`;
 };
