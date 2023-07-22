@@ -19,6 +19,15 @@ app.get("/activePeriods", async (req: Request, res: Response) => {
   const periods = await database.getActivePeriods();
   return res.json({ periods });
 });
+app.patch("/rate", async (req: Request, res: Response) => {
+  const rate = await database.updateRate(req.body);
+  res.json({ success: true });
+});
+
+app.post("/rate", async (req: Request, res: Response) => {
+  const rate = await database.createRate(req.body);
+  res.json({ success: true });
+});
 
 const getData = async (img: string) => {
   let body = new FormData();

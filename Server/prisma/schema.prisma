@@ -40,7 +40,7 @@ model Rate {
   creationDate  DateTime        @default(now())
   vehicleType   VehicleType
   amount        Float
-  isActive      Boolean
+  isActive      Boolean         @default(true)
   vehicleRecord VehicleRecord[]
   period        Period?         @relation(fields: [periodId], references: [id])
   periodId      String?
