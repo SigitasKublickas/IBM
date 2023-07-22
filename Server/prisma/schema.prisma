@@ -9,23 +9,7 @@ datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
 }
-// enum Role {
-//   USER
-//   ADMIN
-// }
-// model Car {
-//   id Int @id @default(autoincrement())
-//   plate String
-//   car_type Role @default(USER)
-//   time_stamp DateTime @default(now())
-  
-// }
 
-// model PriceChart {
-//  id Int @id @default(autoincrement())
-//  price Float
-//  time DateTime
-// } 
 model VehicleRecord {
   id          String      @id @default(uuid())
   plateNumber String
@@ -43,12 +27,13 @@ enum VehicleType {
 
 model Rate {
   id            String          @id @default(uuid())
+  creationDate  DateTime        @default(now())
   startDay      Day
   startHour     Int
   endDay        Day
   endHour       Int
   vehicleType   VehicleType
-  amount        Int
+  amount        Float
   isActive      Boolean
   VehicleRecord VehicleRecord[]
 }
