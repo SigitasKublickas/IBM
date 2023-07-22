@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { api, Rate } from "../api";
+import { api, Period, Rate } from "../api";
 
 type Props = {};
 
 export const Rates = (props: Props) => {
-  const [rates, setRates] = useState<Rate[]>([]);
+  const [periods, setPeriods] = useState<Period[]>([]);
   useEffect(() => {
-    api(axios).getActiveRates().then(setRates);
+    api(axios).getActivePeriods().then(setPeriods);
   }, []);
   return (
     <div className="price-chart">

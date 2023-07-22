@@ -10,6 +10,22 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Day {
+  Monday
+  Tuesday
+  Wednesday
+  Thursday
+  Friday
+  Saturday
+  Sunday
+}
+
+enum VehicleType {
+  Car
+  Motercycle
+  Truck
+}
+
 model VehicleRecord {
   id          String      @id @default(uuid())
   plateNumber String
@@ -19,31 +35,22 @@ model VehicleRecord {
   rateId      String
 }
 
-enum VehicleType {
-  Car
-  Motercycle
-  Truck
-}
-
 model Rate {
   id            String          @id @default(uuid())
   creationDate  DateTime        @default(now())
-  startDay      Day
-  startHour     Int
-  endDay        Day
-  endHour       Int
   vehicleType   VehicleType
   amount        Float
   isActive      Boolean
-  VehicleRecord VehicleRecord[]
+  vehicleRecord VehicleRecord[]
+  period        Period?         @relation(fields: [periodId], references: [id])
+  periodId      String?
 }
 
-enum Day {
-  Monday
-  Tuesday
-  Wednesday
-  Thursday
-  Friday
-  Saturday
-  Sunday
+model Period {
+  id        String @id @default(uuid())
+  startDay  Day
+  startHour Int
+  endDay    Day
+  endHour   Int
+  rates     Rate[]
 }

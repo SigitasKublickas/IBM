@@ -15,9 +15,9 @@ const app: Express = express();
 app.use(cors());
 app.use(express.json({ limit: "500kb" }));
 
-app.get("/activeRates", async (req: Request, res: Response) => {
-  const activeRates = await database.getActiveRates();
-  return res.json({ activeRates });
+app.get("/activePeriods", async (req: Request, res: Response) => {
+  const periods = await database.getActivePeriods();
+  return res.json({ periods });
 });
 
 const getData = async (img: string) => {
