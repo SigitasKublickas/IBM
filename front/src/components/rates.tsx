@@ -40,7 +40,7 @@ export const Rates = (props: Props) => {
         <thead>
           <tr>
             <th>Daytime / Type</th>
-            <th>Motocycle</th>
+            <th>Motorcycle</th>
             <th>Car</th>
             <th>Bus / Track</th>
           </tr>
