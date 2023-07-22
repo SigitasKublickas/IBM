@@ -9,7 +9,20 @@ export const api = (axios: Axios) => {
       return { ...period, rates: period.rates.map(parseRate) };
     });
   };
+
+  const updateRate = async (rate: Partial<Rate>) => {
+    return axios.patch(`${APIURL}/rate`, { ...rate });
+  };
+
+  const createRate = async (
+    rate: Omit<Rate, "id" | "creationDate" | "isActive">
+  ) => {
+    return axios.post(`${APIURL}/rate`, { ...rate });
+  };
+
   return {
+    updateRate,
+    createRate,
     getActivePeriods,
   };
 };

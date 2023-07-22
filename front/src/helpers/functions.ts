@@ -34,3 +34,13 @@ export const getFormatedPrice = (rate: Rate): string => {
   }
   return `${rate.amount} Eur/h`;
 };
+export const compareRatesByVehicleType = (rateOne: Rate, rateTwo: Rate) => {
+  const rateTable = { Motercycle: 0, Car: 1, Truck: 2 };
+  if (rateOne.vehicleType === rateTwo.vehicleType) {
+    return 0;
+  }
+  if (rateTable[rateOne.vehicleType] > rateTable[rateTwo.vehicleType]) {
+    return 1;
+  }
+  return -1;
+};

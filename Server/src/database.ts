@@ -3,8 +3,15 @@ import { PrismaClient, Rate } from "@prisma/client";
 export const databaseClient = (prisma: PrismaClient) => {
   const getActivePeriods = () =>
     prisma.period.findMany({
+      orderBy: [
+        {
+          startDay: "asc",
+        },
+      ],
       include: {
-        rates: { where: { isActive: true } },
+        rates: {
+          where: { isActive: true },
+        },
       },
     });
 
