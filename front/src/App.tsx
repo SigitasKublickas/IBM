@@ -3,17 +3,16 @@ import React, { useEffect, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { Alert } from "./components/dialog";
+import { api } from "./api";
+import { Rates } from "./components/rates";
 
 function App() {
-  const [base64Image, setBase64Image] = useState<any>("");
   const [expand, setExpand] = useState<boolean>(false);
   const [msg, setMsg] = useState<string>("");
   const handleImageChange = (event: any) => {
     const file = event.target.files[0];
-
     if (file) {
       const reader = new FileReader();
-
       reader.onloadend = () => {
         axios
           .post("http://localhost:8000/image", {
@@ -25,7 +24,6 @@ function App() {
           })
           .catch((err) => console.log(err));
       };
-
       reader.readAsDataURL(file);
     }
   };
@@ -41,40 +39,7 @@ function App() {
           onChange={handleImageChange}
         />
       </div>
-      <div className="price-chart">
-        <table>
-          <tr>
-            <td>Daytime / Type</td>
-            <td>Motocycle</td>
-            <td>Car</td>
-            <td>Bus / Track</td>
-          </tr>
-          <tr>
-            <td>Monday - Thursday {"(8am-5pm)"}</td>
-            <td>0.5 Eur/h</td>
-            <td>1 Eur/h</td>
-            <td>2 Eur/h</td>
-          </tr>
-          <tr>
-            <td>Friday {"(8am-8pm)"}</td>
-            <td>1.5 Eur/h</td>
-            <td>2 Eur/h</td>
-            <td>3.5 Eur/h</td>
-          </tr>
-          <tr>
-            <td>Saturday {"(Whole day)"}</td>
-            <td>2 Eur/h</td>
-            <td>4 Eur/h</td>
-            <td>5 Eur/h</td>
-          </tr>
-          <tr>
-            <td>Sunday {"(Whole day)"}</td>
-            <td>Free</td>
-            <td>Free</td>
-            <td>Free</td>
-          </tr>
-        </table>
-      </div>
+      <Rates />
       {expand && (
         <Alert
           text={msg}
