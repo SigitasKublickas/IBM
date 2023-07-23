@@ -23,7 +23,9 @@ export const api = (axios: Axios) => {
 
   const createVehicleRecord = async (
     image: FileReaderType
-  ): Promise<{ data: { success: boolean; id: string; direction: string } }> => {
+  ): Promise<{
+    data: { success: boolean; id: string; direction: string; msg: string };
+  }> => {
     return axios.post(`${APIURL}/vehicleRecord`, { image });
   };
 

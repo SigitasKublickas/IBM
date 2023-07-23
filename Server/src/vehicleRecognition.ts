@@ -13,7 +13,9 @@ const VehicleTypeMap: { [key: string]: VehicleType } = {
   Van: "Car",
   Unknown: "Car",
 };
-export const getVehilceInfo = async (img: string): Promise<VehicleInfo> => {
+export const getVehilceInfo = async (
+  img: string
+): Promise<VehicleInfo | undefined> => {
   let body = new FormData();
   body.append("upload", img);
   body.append("regions", "lt");
@@ -31,9 +33,12 @@ export const getVehilceInfo = async (img: string): Promise<VehicleInfo> => {
   }
 
   const data = await response.json();
+  if (data.results[0]) {
+    const vehicleType = VehicleTypeMap[data.results[0].vehicle.type];
+    const plateNumber = data.results[0].plate;
 
-  const vehicleType = VehicleTypeMap[data.results[0].vehicle.type];
-  const plateNumber = data.results[0].plate;
-
-  return { vehicleType, plateNumber };
+    return { vehicleType, plateNumber };
+  } else {
+    return undefined;
+  }
 };

@@ -19,7 +19,7 @@ const vehicleService = createVehicleService(prisma);
 const app: Express = express();
 
 app.use(cors());
-app.use(express.json({ limit: "500kb" }));
+app.use(express.json({ limit: "20000kb" }));
 
 app.get("/activePeriods", async (req: Request, res: Response) => {
   const periods = await rateService.getActivePeriods();
@@ -38,8 +38,22 @@ app.post("/rate", async (req: Request, res: Response) => {
 
 app.post("/vehicleRecord", async (req: Request, res: Response) => {
   const vehicleInfo = await getVehilceInfo(req.body.image);
-  const record = await vehicleService.createVehicleRecord(vehicleInfo);
-  res.json({ success: true, id: record.id, direction: record.direction });
+  if (vehicleInfo) {
+    const record = await vehicleService.createVehicleRecord(vehicleInfo);
+    res.json({
+      success: true,
+      id: record.id,
+      direction: record.direction,
+      msg: "",
+    });
+  } else {
+    res.json({
+      success: false,
+      msg: "Something wrong! Try another photo!",
+      id: "",
+      direction: "",
+    });
+  }
 });
 
 app.post("/parkingCost", async (req: Request, res: Response) => {

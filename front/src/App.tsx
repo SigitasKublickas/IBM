@@ -23,13 +23,22 @@ function App() {
     createVehicleRecord(file)
       .then(
         (res: {
-          data: { success: boolean; id: string; direction: string };
+          data: {
+            success: boolean;
+            id: string;
+            direction: string;
+            msg: string;
+          };
         }) => {
-          if (res.data.direction === "Exit") {
-            setRecord(res.data);
+          if (res.data.success) {
+            if (res.data.direction === "Exit") {
+              setRecord(res.data);
+            } else {
+              setExpand(true);
+              setMsg("Welcome to the parking lot!!!");
+            }
           } else {
-            setExpand(true);
-            setMsg("Welcome to the parking lot!!!");
+            alert(`${res.data.msg}`);
           }
         }
       )
