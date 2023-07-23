@@ -19,6 +19,9 @@ export const RateInput = (props: Props) => {
         onKeyDown={(e) => {
           e.key === "Enter" && props.onEnter(value);
         }}
+        onBlur={() => {
+          setValue(props.value);
+        }}
       />
       <span>Eur/h</span>
     </>

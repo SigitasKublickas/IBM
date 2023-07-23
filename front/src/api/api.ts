@@ -21,14 +21,26 @@ export const api = (axios: Axios) => {
     return axios.post(`${APIURL}/rate`, { ...rate });
   };
 
-  const createVehicleRecord = async (image: FileReaderType) => {
+  const createVehicleRecord = async (
+    image: FileReaderType
+  ): Promise<{ data: { success: boolean; id: string; direction: string } }> => {
     return axios.post(`${APIURL}/vehicleRecord`, { image });
   };
+
+  const getCostById = async (
+    id: string
+  ): Promise<{
+    data: { success: boolean; cost: number; spentTime: string };
+  }> => {
+    return axios.post(`${APIURL}/parkingCost`, { id });
+  };
+
   return {
     updateRate,
     createRate,
     getActivePeriods,
     createVehicleRecord,
+    getCostById,
   };
 };
 

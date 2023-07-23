@@ -32,12 +32,15 @@ enum Direction {
 }
 
 model VehicleRecord {
-  id          String      @id @default(uuid())
-  plateNumber String
-  timeStamp   DateTime    @default(now())
-  vehicleType VehicleType
-  rates       Rate[]
-  direction   Direction
+  id           String         @id @default(uuid())
+  plateNumber  String
+  timeStamp    DateTime       @default(now())
+  vehicleType  VehicleType
+  rates        Rate[]
+  direction    Direction
+  exitRecordId String?        @unique
+  exitRecord   VehicleRecord? @relation("ParkingHistory", fields: [exitRecordId], references: [id])
+  enterRecord  VehicleRecord? @relation("ParkingHistory")
 }
 
 model Rate {

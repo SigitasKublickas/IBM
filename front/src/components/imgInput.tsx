@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type Props = {
   onImageUploaded: (file: FileReaderType) => void;
 };
@@ -6,7 +8,6 @@ export const ImgInput = (props: Props) => {
   return (
     <div className="file-drop-area">
       <span className="fake-btn">Choose files</span>
-      <span className="file-msg">or drag and drop files here</span>
       <input
         className="file-input"
         type="file"
@@ -21,6 +22,7 @@ export const ImgInput = (props: Props) => {
             reader.readAsDataURL(file);
           }
         }}
+        value={""}
       />
     </div>
   );

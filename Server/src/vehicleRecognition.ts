@@ -1,5 +1,5 @@
 import { VehicleType } from "@prisma/client";
-import { VehicleInfo } from "./database.js";
+import { VehicleInfo } from "./servises/rateService.js";
 
 const plateRecognizerUrl = "https://api.platerecognizer.com/v1/plate-reader/";
 

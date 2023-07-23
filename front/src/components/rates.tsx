@@ -16,10 +16,15 @@ export const Rates = (props: Props) => {
   );
   const [periods, setPeriods] = useState<Period[]>([]);
   useEffect(() => {
-    getActivePeriods().then(setPeriods);
+    getPeriods();
   }, []);
+
+  const getPeriods = () => {
+    getActivePeriods().then(setPeriods);
+  };
+
   const alert = () => {
-    let text = "Do you want to change price?\nEither OK or Cancel.";
+    let text = "Do you want to change price?";
     return window.confirm(text);
   };
   const onEnter = (value: number, rate: Rate) => {
@@ -30,6 +35,8 @@ export const Rates = (props: Props) => {
         vehicleType: rate.vehicleType,
         amount: value,
         periodId: rate.periodId,
+      }).then(() => {
+        getPeriods();
       });
     }
   };
