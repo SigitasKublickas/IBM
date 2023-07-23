@@ -10,6 +10,8 @@ then run command in server folder "npx prisma migrate dev --name test" and "npx 
 
 In the front folder install node_module with "npm install" and run with "npm start";
 
+In sql folder you will find all database tables with inserts.
+
 To insert photo just click on button "CHOOSE FILES" and add photo with vehicle plate.
 
 To change price on table need write price and press enter after that if you realy want change price press "OK" else "CANCEL";
